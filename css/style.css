@@ -2,13 +2,46 @@
 body{
   margin: 0 auto;
 }
-/*.canvas-div{
-  position: relative;
-  width: 400px;
-  height: 300px;
+.canvas-container{
+ position: relative;
 }
-canvas {
+
+.start-btn {
+  font-size: 30px;
+  background-color: #B20000;
+  color: #fff;
+  border-radius: 5px;
   position: absolute;
-  top: 0;
-  left: 0;
-}*/
+  padding: 10px 50px;
+  left:45%;
+  top:88%;
+  text-align: center;
+  text-decoration: none;
+}
+
+
+@keyframes shake {
+  10%, 90% {transform: translate3d(-1px, 0, 0);}
+  
+  20%, 80% {transform: translate3d(2px, 0, 0);}
+
+  30%, 50%, 70% {transform: translate3d(-4px, 0, 0);}
+
+  40%, 60% {transform: translate3d(4px, 0, 0);}
+}
+
+@keyframes glowing {
+  0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+}
+
+.start-btn:hover {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+.start-btn{
+  animation: glowing 1500ms infinite;
+}

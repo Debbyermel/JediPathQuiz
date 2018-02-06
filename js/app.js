@@ -4,19 +4,23 @@ var ctx = canvas.getContext("2d");
 //Images Object
  var images = {
     bg:"img/cover.jpg",  
-  };
+ };
+
+
 
   //Global Variables
   var board;
   var box;
   var frames = 0;
+  var myScore;;
 
 
   function startGame(){ 
     frames = 0;
     board = new Board();
     box = new Box();
- UpdateGame()
+    UpdateGame();
+     startTime= Date.now(), prevTime = startTime;
   }
 
    function UpdateGame(){
@@ -55,21 +59,4 @@ var ctx = canvas.getContext("2d");
     }
   }
 
-
   startGame();
- 
-
- /* function sound(src) {
-    this.sound = document.createElement("audio");
-    this.sound.src = src;
-    this.sound.setAttribute("preload", "auto");
-    this.sound.setAttribute("controls", "none");
-    this.sound.style.display = "none";
-    document.body.appendChild(this.sound);
-    this.play = function(){
-        this.sound.play();
-    }
-    this.stop = function(){
-        this.sound.pause();
-    }
-}*/

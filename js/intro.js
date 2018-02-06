@@ -1,25 +1,27 @@
 var canvas = document.getElementById("canvas-box");
 var ctx = canvas.getContext("2d");
 
-var images = {
-  bg:"img/bg.png",
-  ship:"img/mFalcon.png"
- };
-
 //main variables
 var board;
 var ship;
+var logo;
 var interval;
 var frames = 0;
 var mySound;// r2 music
 var myMusic;// theme music
 
+var images = {
+    bg:"img/bg.png",
+    ship:"img/mFalcon.png",
+    logo:"img/logo.png"
+   };
+
 
 function Ship(){
-    this.x = 600;
+    this.x = 640;
     this.y = 500;
-    this.width = 200;
-    this.height = 280;
+    this.width = 180;
+    this.height = 250;
     this.speed = 0;
     this.img = new Image();
     this.img.src = images.ship;
@@ -31,11 +33,36 @@ function Ship(){
     }
     this.getUp = function(){
         console.log(this.y)
+        if(this.y >398){
+            this.y-=1;
+            this.speed = 0;
+        }else{
+            
+        }
+    }
+  }
+
+  function Logo(){
+    this.x = 450;
+    this.y = 190;
+    this.width = 600;
+    this.height = 280;
+    this.speed = 0;
+    this.img = new Image();
+    this.img.src = images.logo;
+    this.img.onload = function(){
+      this.draw();
+    }.bind(this);
+    this.draw = function(){
+      ctx.drawImage(this.img,this.x,this.y,this.width,this.height);
+    }
+    this.moveUp = function(){
+        console.log(this.y)
         if(this.y >100){
             this.y-=1;
             this.speed = 0;
         }else{
-            console.log("stop")
+            
         }
     }
   }
@@ -64,6 +91,7 @@ function startGame(){
     frames = 0;
     board = new Board();
     ship = new Ship();
+    logo = new Logo();
     interval = setInterval(updateGame,1000/20);
   }
 
@@ -75,6 +103,8 @@ function startGame(){
     board.draw();
     ship.draw();
     ship.getUp();
+    logo.draw();
+    logo.moveUp();
     //get the pipes
     ctx.font = "50px Arial";
     ctx.fillText(Math.floor(frames/8), 100,150);
@@ -96,6 +126,16 @@ function startGame(){
 }
   
   startGame();
+
+  
+   var startBtn = document.getElementById('start-btn');
+    startBtn.onclick = function(){
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "js/Scripts/filename.js."; 
+    document.getElementsByTagName("head")[0].appendChild(script);
+    return false;
+}
   
 
 
