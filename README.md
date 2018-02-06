@@ -9,5 +9,5 @@ create a Start screen that has a spinwheel, for choosing a Star Wars topic.
 Start the game with a canvas background and the questions of choose topic will start.
 
 ![yoda](https://user-images.githubusercontent.com/15261454/35839564-b2cf1cc0-0ab6-11e8-859e-c65a7138b41c.jpg)
-![alt tag](http://url/to/img.png)
+![yoda](http://url/to/img.png)
 
