@@ -1,7 +1,7 @@
 
 var questionsOne = [
 { 
-  text:"In how many languages is C-3P0 fluent?",
+  text:"How many languages is C-3P0 fluent?",
   choices:["378","2500","600000"],
   answer:"600000"
 },
@@ -11,13 +11,13 @@ var questionsOne = [
   answer:"3,720 to 1"
 },
 {
-  text:"What alien species is Wicket",
+  text:"What alien species is Wicket?",
   choices:["Ewok","gahna","boonta"],
   answer:"Ewok"
 },
 {
-  text:"What is the name of Boba Fett's ship",
-  choices:["Boonta Eve","Slave 1","Probot"],
+  text:"What is the name of Boba Fett's ship?",
+  choices:["Boonta Eve","Slave1","Probot"],
   answer:"Slave1"
 },
 {
@@ -27,7 +27,7 @@ var questionsOne = [
 },
 {
   text:"Darth Vader's chestpiece has some writing on it, which languague is it?",
-  choices:["Ancient Hebrew","Hommage",""],
+  choices:["Ancient Hebrew","Aurebesh","Huttese"],
   answer:"Ancient Hebrew"
 },
 {

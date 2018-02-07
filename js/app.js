@@ -3,7 +3,7 @@ var ctx = canvas.getContext("2d");
 
 //Images Object
  var images = {
-    bg:"img/cover.jpg",  
+    bg:"img/cover.jpg", 
  };
 
   //Global Variables
@@ -51,13 +51,13 @@ var ctx = canvas.getContext("2d");
   }
 
   function Box(){
-    this.x = 600;
-    this.y =150;
+    this.x = 670;
+    this.y =50;
     this.width = canvas.width;
     this.height = canvas.height;
     this.draw = function(){
       ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-      ctx.fillRect(this.x,this.y, 650, 535);
+      ctx.fillRect(this.x,this.y,800, 535);
     }
   }
 
