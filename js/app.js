@@ -6,29 +6,31 @@ var ctx = canvas.getContext("2d");
     bg:"img/cover.jpg",  
  };
 
-
-
   //Global Variables
   var board;
   var box;
   var frames = 0;
-  var myScore;;
+  var myScore;
+  var question;
+  var quiz;
+  var content = "The Jedi Path";
+  var interval;
 
 
   function startGame(){ 
     frames = 0;
     board = new Board();
     box = new Box();
-    UpdateGame();
-     startTime= Date.now(), prevTime = startTime;
+    question = new Question();
+    //question = new Quiz();
+    interval = setInterval(updateGame,1000/60);
   }
 
-   function UpdateGame(){
-     frames ++;
-    setTimeout(function(){
-      box.draw();
-
-    },500)
+   function updateGame(){
+    frames ++;
+    board.draw();
+    box.draw();
+    question.drawQuestion();   
 }
 
   //main Functions
@@ -54,9 +56,21 @@ var ctx = canvas.getContext("2d");
     this.width = canvas.width;
     this.height = canvas.height;
     this.draw = function(){
-      ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
-      ctx.fillRect(this.x,this.y, 650, 435);
+      ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+      ctx.fillRect(this.x,this.y, 650, 535);
     }
   }
+
+  function gameName(){
+    this.x = 100;
+    this.y =150;
+    this.width = canvas.width;
+    this.height = canvas.height;
+    this.draw = function(){
+    this.font = "24px Starjedi";
+    this.fillStyle = "red";
+    this.textBaseline = "top";
+  }
+}
 
   startGame();
