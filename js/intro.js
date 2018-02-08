@@ -18,7 +18,7 @@ var images = {
 
 
 function Ship(){
-    this.x = 640;
+    this.x = 650;
     this.y = 500;
     this.width = 180;
     this.height = 250;

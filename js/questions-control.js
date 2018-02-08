@@ -14,58 +14,63 @@ Question.prototype.randomQ = function(){
   this.text = q.text;
   this.choices = q.choices;
   this.answer = q.answer;
-}
+  this.choicePairs = []
+  this.key;
+  //asignamos letras
+  var chars = [48,49,50];
 
+  this.choices.forEach(choice=>{
+
+    var letterIndex = Math.floor(Math.random()*chars.length);
+    if(choice === this.answer){
+       this.key = chars[letterIndex];
+    }
+    this.choicePairs.push({key:chars[letterIndex],choice:choice});
+    console.log(this.choicePairs)
+ 
+    chars.splice(letterIndex,1); 
+
+  });
+}
 
 Question.prototype.drawQuestion = function(){
+  var dic = {
+    48:"A",
+    49:"B",
+    50:"C"
+  }
   var y = 290;
-  ctx.font = "40px Starjedi";
   ctx.fillStyle = "#f9d566";
   ctx.textBaseline = "middle";
-  //dibujar la pregunta tambien
-  console.log(this.text)
- 
-  this.choices.forEach(choice=>{
-    ctx.fillText(choice,770,y);
-   y+=82;
-  });
   ctx.font = "30px Starjedi";
   ctx.fillText(this.text,720,120);
- 
+  this.choicePairs.sort(function(a, b) {
+    return a.key - b.key;
+});
+console.log(this.choicePairs)
+  this.choicePairs.forEach(pair=>{
+    ctx.font = "40px Starjedi";
+    ctx.fillText(pair.choice,770,y)
+    ctx.fillText(dic[pair.key], 700,y + 1); 
+    y+=82;
+  });
 
-  
- 
-  // asignarle una letra 
-  //A,B,C
-  //A === answer
-  //listener key
 }
-
-Question.prototype.checkKeyCode = function(keyCode){
-  if(event.keyCode !== 48 || event.keyCode !== 49 || event.keyCode !== 50.){
+ 
+addEventListener("keydown", function(keyCode){
+  if(keyCode === 48 || keyCode === 49 || keyCode === 50){
+    if(key === answer){
+      myScore = MyScore + 1;
+      console.log(myScore);
+    }
   }
-
-  keyCode === this.answer
-    //ctx Right answer y sumo puntos
-}
-
-Question.prototype.checkAnswer = function(keyCode){
-  keyCode === this.answer
-    //ctx Right answer y sumo puntos
-}
-Question.prototype.correctAnswer = function(choice){
-  return choice === this.answer;
-}
+})
 
 //Quiz Control
 function Quiz(questions){
  this.score = 0;
  this.questions = questions;
  this.questionIndex = 0;
-}
-
-Quiz.prototype.setQuestionIndex = function(){
-   return this.questions[questionIndex];
 }
 
 Quiz.prototype.gameEnd = function(){

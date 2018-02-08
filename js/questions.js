@@ -6,9 +6,9 @@ var questionsOne = [
   answer:"600000"
 },
 {
-  text:"What odds does C-3P0 give Han for successfully navigating the asteroid field?",
-  choices:["3,720 to 1","1876 to 2","863 to 1"],
-  answer:"3,720 to 1"
+  text:"What is Count Dooku's Sith Name?",
+  choices:["Darth Tyrannus","Darth Palpatine","Darth Binks"],
+  answer:"Darth Tyrannus"
 },
 {
   text:"What alien species is Wicket?",
@@ -21,14 +21,14 @@ var questionsOne = [
   answer:"Slave1"
 },
 {
-  text:"Who was the original commander of the Death Star?",
-  choices:["Darth Vader","Admiral Acbar","Grand Moff Tarkin"],
-  answer:"Grand Moff Tarkin"
+  text:"What happened to Darth Maul??",
+  choices:["Killed by Obi-Wan Kenobi","Unconfirmed","Killed by Count Dooku"],
+  answer:"Killed by Obi-Wan Kenobi"
 },
 {
-  text:"Darth Vader's chestpiece has some writing on it, which languague is it?",
-  choices:["Ancient Hebrew","Aurebesh","Huttese"],
-  answer:"Ancient Hebrew"
+  text:"From which planet is Han Solo from",
+  choices:["Coruscant","Kashyyk","Corellia"],
+  answer:"Corellia"
 },
 {
   text:"What species is Yoda?",
@@ -36,28 +36,18 @@ var questionsOne = [
   answer:"Knows, no one does"
 },
 {
-  text:"R2-D2 is classified as what type of droid?",
+  text:"R2-D2 is which kind of droid?",
   choices:["Astromech droid","Battle droid","Protocol droid"],
   answer:"Astromech Droid"
 },
 {
-  text:"R2-D2 is classified as what type of droid?",
-  choices:["Astromech droid","Battle droid","Protocol droid"],
-  answer:"Astromech Droid"
+  text:"What is the name of Jabba's pet?",
+  choices:["Feisty D. Frisker","Salacious B. Crumb","Boba Tea"],
+  answer:"Salacious B. Crumb"
 }
 
 ];
 
-// var questionsTwo = [
-//   new Question(),
-//   new Question(),
-//   new Question(),
-//   new Question(),
-//   new Question(),
-//   new Question(),
-//   new Question(),
-//   new Question(),
-  
-//   ];
+
 
   //var quiz = new Quiz(questionsOne);
