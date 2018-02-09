@@ -10,11 +10,12 @@ var ctx = canvas.getContext("2d");
   var board;
   var box;
   var frames = 0;
-  var myScore;
   var question;
   var quiz;
-  var content = "The Jedi Path";
+  var score = 0;
+  var showingScore = false;
   var interval;
+  var userInput;
 
 
   function startGame(){ 
@@ -22,8 +23,10 @@ var ctx = canvas.getContext("2d");
     board = new Board();
     box = new Box();
     question = new Question();
-    //question = new Quiz();
     interval = setInterval(updateGame,1000/60);
+    //quiz = new Quiz(questionsOne);
+    document.querySelector("#input").value = "";
+
   }
 
    function updateGame(){
@@ -31,6 +34,7 @@ var ctx = canvas.getContext("2d");
     board.draw();
     box.draw();
     question.drawQuestion();   
+    drawScore()
 }
 
   //main Functions
@@ -67,10 +71,17 @@ var ctx = canvas.getContext("2d");
     this.width = canvas.width;
     this.height = canvas.height;
     this.draw = function(){
-    this.font = "24px Starjedi";
-    this.fillStyle = "red";
-    this.textBaseline = "top";
+
   }
+}
+
+// Score
+function drawScore(){
+  ctx.fillStyle = "rgb(250, 250, 250)";
+  ctx.font = "24px Helvetica";
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+  ctx.fillText("Score:  " + score, 32, 32);
 }
 
   startGame();

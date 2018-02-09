@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>OOP Quiz App</title>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js" type="text/javascript"></script>
+  <style>
+    body {
+	margin: 0;
+	background-image: url('congruent_pentagon.png');
+	font-family: sans-serif;
+	font-size: 20px;
+	color: rgb(121, 127, 124);
+}
+
+h1 {
+	text-align: center;
+}
+
+h2 {
+	margin-top: 0;
+}
+
+div, form {
+	box-sizing: border-box;
+}
+
+button {
+	background-color: rgb(0, 81, 115);
+	color: #fff;
+	padding: 0.5em;
+	border: none;
+	border-radius: 5px;
+	font-size: 15px;
+	line-height: 1.5em;
+	margin-top: 20px;
+}
+
+.hidden {
+	display: none;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.content {
+	position: relative;
+	width: 800px;
+	padding: 20px;
+	margin: 50px auto;
+	background-color: rgba(255, 255, 255, 0.3);
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	border-bottom-width: 10px;
+	border-radius: 5px;
+	border-bottom-radius: 10px;
+	overflow: hidden;
+}
+
+/*
+ * In case you're wondering how the content seems
+ * to blur the background behind it this is the trick
+ */
+.content::before {
+	position: absolute;
+	top: -20px;
+	left: -20px; 
+	content: ' ';
+	width: 100%;
+	height: 100%;
+	padding: 20px;
+	background-image: url('congruent_pentagon.png');
+	background-position: center 100px;
+	-webkit-filter: blur(10px);
+	z-index: -1;
+}
+
+@media (max-width: 800px) {
+	.content {
+		width: 100%;
+	}
+}
+
+.answers-container {
+	list-style: none;
+}
+
+  </style>
+</head>
+<body>
+	<h1>Object Oriented Programming Quiz</h1>
+	<div class="content">
+		<div class="content-inner">
+			<!-- 
+				#quiz-intro shown by default when the page loads, and contains
+				a challenge to the quiz taker and a button to begin the quiz
+			-->
+			<div id="quiz-intro" class="text-center">
+				<h2>You down with OOP? Well try and see...</h2>
+				<button class="start-button" type="button">Start Quiz</button>
+			</div>
+			<!--
+				#quiz-form will contain the question and answers in the 
+				.question-container and .answer-container respectively.
+				It also contains a button to submit an answer.
+			-->
+			<form id="quiz-form" class="hidden">
+				<div class="quiz-container">
+					<p class="question-container text-center"></p>
+					<ul class="answers-container">
+					</ul>
+				</div>
+				<div class="text-center">
+					<button class="submit-answer-button" type="button">Submit Answer</button>
+				</div>
+			</form>
+			<!--
+				#quiz-outro is shown when the user completes the quiz. An
+				appropriate message is displayed in .quiz-outro-message,
+				and the quiz taker can reset the quiz using the reset button.
+			-->
+			<div id="quiz-outro" class="hidden text-center">
+				<div class="quiz-outro-message"></div>
+				<button class="reset-button" type="button">Try again?</button>
+			</div>
+		</div>
+	</div>
+<script>
+app.js#
+!function() {
+
+	var data = [
+		{
+			prompt: 'What is not a principle of Object Oriented Programming',
+			answers: [
+				'Abstraction',
+				'Encapsulation',
+				'Inheritence',
+				'Polymorphism',
+				'Impressionism'
+			],
+			correctIndex: 4
+		},{
+			prompt: 'What type of inheritence pattern is utilized in JavaScript?',
+			answers: [
+				'Prototypal',
+				'Classical',
+				'Trust'
+			],
+			correctIndex: 0
+		},{
+			prompt: 'Which is better? Functional Programming or Object Oriented Programming?',
+			answers: [
+				'Object Oriented Programming',
+				'Functional Programming',
+				'Neither, everything has its uses'
+			],
+			correctIndex: 2
+		}
+	];
+
+	/*
+	 * Handling Data (Model):
+	 *
+	 * These objects handle all of the data for the app. In this
+	 * case our data are in the form of quiz questions, where each
+	 * question has a prompt, a set of answers, and a correct answer.
+	 */
+	
+	/*
+	 * The Question object represents a single question. It has
+	 * properties that reflect the data, and a set of methods
+	 * to interact with that data.
+	 */
+	function Question(datum) {
+		this.prompt = datum.prompt;
+		this.answers = datum.answers;
+		this.correctIndex = datum.correctIndex;
+	}
+
+	Question.prototype.checkAnswer = function(index) {
+		return index === this.correctIndex;
+	};
+
+	Question.prototype.forEachAnswer = function(callback, context) {
+		this.answers.forEach(callback, context);
+	};
+
+	/*
+	 * The Quiz object is a collection of question objects.
+	 * It creates the questions from data, stores the questions,
+	 * and keeps track of what question you're on and how many
+	 * questions you've gotten right.
+	 */
+	function Quiz(data) {
+		this.numberCorrect = 0;
+		this.counter = 0;
+		this.questions = [];
+
+		this.addQuestions(data);
+	}
+
+	Quiz.prototype.addQuestions = function(data) {
+		for (var i = 0; i < data.length; i++) {
+			this.questions.push(new Question(data[i]));
+		}
+	};
+
+	Quiz.prototype.advanceQuestion = function(lastAnswer) {
+		if (this.currentQuestion && this.currentQuestion.checkAnswer(lastAnswer)) {
+			this.numberCorrect++;
+		}
+
+		this.currentQuestion = this.questions[this.counter++];
+
+		return this.currentQuestion;
+	};
+
+	/*
+	 * Handling Logic (Controller)
+	 *
+	 * These objects handle the business logic of our app. The logic
+	 * in this case is "start quiz", "next question" and "end quiz".
+	 */
+
+	/*
+	 * The QuizApp object coordinates all the other objects in the
+	 * application, and controls the flow of the quiz.
+	 */
+	function QuizApp(data) {
+		this.data = data;
+		this.introView = new IntroView('#quiz-intro', this);
+		this.outroView = new OutroView('#quiz-outro', this);
+		this.questionView = new QuestionView('#quiz-form', this);
+		
+		this.introView.attachEventHandlers();
+		this.outroView.attachEventHandlers();
+		this.questionView.attachEventHandlers();
+	}
+
+	QuizApp.prototype.startQuiz = function() {
+		this.quiz = new Quiz(this.data);
+
+		this.introView.toggle(true);
+		this.outroView.toggle(true);
+		this.questionView.toggle(false);
+
+		this.nextQuestion();
+	};
+
+	QuizApp.prototype.nextQuestion = function(answer) {
+		var nextQuestion = this.quiz.advanceQuestion(answer);
+		
+		if (nextQuestion) {
+			this.questionView.setQuestion(nextQuestion);
+		} else {
+			this.endQuiz();
+		}
+	};
+
+	QuizApp.prototype.endQuiz = function() {
+		this.questionView.toggle(true);
+		this.outroView.toggle(false);
+
+		this.outroView.displayOutroMessage(this.quiz.numberCorrect, this.quiz.questions.length);
+	};
+	
+	/*
+	 * Handling Presentation (View):
+	 *
+	 * These objects handle all of the manipulation of the DOM as well
+	 * as handling events triggered on the DOM. We have three views, one
+	 * for each section of the application.
+	 */
+
+	/*
+	 * The IntroView handles interaction with the #quiz-intro section
+	 * and its .start-button. When the start button is clicked it
+	 * starts the quiz by interacting with its QuizApp object through
+	 * the startQuiz method. It also implements methods to attach
+	 * event handlers and toggle its visibility.
+	 */
+	function IntroView(selector, quizApp) {
+		this.element = $(selector);
+		this.startButton = this.element.find('.start-button');
+		this.quizApp = quizApp;
+	}
+
+	IntroView.prototype.attachEventHandlers = function() {
+		var self = this;
+
+		this.startButton.click(function() {
+			self.quizApp.startQuiz();
+		});
+	};
+
+	IntroView.prototype.toggle = function(hide) {
+		this.element.toggleClass('hidden', hide);
+	};
+	
+	/*
+	 * The OutroView is similar to the IntroView, with the addition
+	 * of a displayOutroMessage method which displays an appropriate
+	 * message based on the number of correct answers and the total
+	 * number of questions.
+	 */
+	function OutroView(selector, quizApp) {
+		this.element = $(selector);
+		this.resetButton = this.element.find('.reset-button');
+		this.outroMessage = this.element.find('.quiz-outro-message');
+		this.quizApp = quizApp;
+	}
+
+	OutroView.prototype.displayOutroMessage = function(numberCorrect, totalQuestions) {
+		var message = 'You got ' + numberCorrect + ' questions right out of ' + 
+			totalQuestions + '. Would you like to try again?';
+
+		this.outroMessage.html(message);
+	};
+
+	OutroView.prototype.attachEventHandlers = function() {
+		var self = this;
+
+		this.resetButton.click(function() {
+			self.quizApp.startQuiz();
+		});
+	};
+
+	OutroView.prototype.toggle = function(hide) {
+		this.element.toggleClass('hidden', hide);
+	};
+	
+	/*
+	 * The QuestionView is where most of the action is. It has similar methods
+	 * that attach event handlers and toggle the element visibility. It also
+	 * implements a setQuestion method that takes a question and generates
+	 * the HTML for the prompt and answers and puts them into the DOM.
+	 */
+	function QuestionView(selector, quizApp) {
+		this.element = $(selector);
+		this.submitAnswerButton = this.element.find('.submit-answer-button');
+		this.questionContainer = this.element.find('.question-container');
+		this.answersContainer = this.element.find('.answers-container');
+		this.quizApp = quizApp;
+	}
+
+	QuestionView.prototype.attachEventHandlers = function() {
+		var self = this;
+
+		this.submitAnswerButton.click(function() {
+			var checkedInput = self.answersContainer.find('input:checked');
+
+			if (!checkedInput.length) alert('Please select an answer');
+			else {
+				var answer = +checkedInput.val();
+				self.quizApp.nextQuestion(answer);
+			}
+		});
+	};
+
+	QuestionView.prototype.setQuestion = function(question) {
+		var radios = '';
+
+		this.questionContainer.text(question.prompt);
+
+		question.forEachAnswer(function(answer, index) {
+			radios += 
+				'<li>' +
+					'<input type="radio" name="answer" value="' + index + '" id="answer' + index + '"></input>' +
+					'<label for="answer' + index + '">' + answer + '</label>' +
+				'</li>';
+		});
+
+		this.answersContainer.html(radios);
+	};
+
+	QuestionView.prototype.toggle = function(hide) {
+		this.element.toggleClass('hidden', hide);
+	};
+	
+	/*
+	 * Then when the document is ready, we do stuff!!!
+	 */
+
+	$(function() {
+		var quizApp = new QuizApp(data);
+	});
+}();
+</script>
+</body>
+</html>
+

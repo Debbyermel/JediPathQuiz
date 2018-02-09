@@ -36,18 +36,14 @@ var questionsOne = [
   answer:"Knows, no one does"
 },
 {
-  text:"R2-D2 is which kind of droid?",
-  choices:["Astromech droid","Battle droid","Protocol droid"],
-  answer:"Astromech Droid"
-},
-{
   text:"What is the name of Jabba's pet?",
   choices:["Feisty D. Frisker","Salacious B. Crumb","Boba Tea"],
   answer:"Salacious B. Crumb"
+},{
+  text:"R2-D2 is which kind of droid?",
+  choices:["Astromech droid","Battle droid","Protocol droid"],
+  answer:"Astromech droid"
 }
-
 ];
 
-
-
-  //var quiz = new Quiz(questionsOne);
+  

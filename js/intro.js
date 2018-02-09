@@ -10,6 +10,7 @@ var frames = 0;
 var mySound;// r2 music
 var myMusic;// theme music
 
+
 var images = {
     bg:"img/bg.png",
     ship:"img/mFalcon.png",
@@ -120,7 +121,7 @@ function startGame(){
     this.play = function(){
         this.sound.play();
     }
-    this.stop = function(){
+     this.stop = function(){
      this.sound.pause();
     }    
 }
