@@ -9,6 +9,7 @@ var ctx = canvas.getContext("2d");
   //Global Variables
   var board;
   var box;
+  var BoardEnd;
   var frames = 0;
   var question;
   var quiz;
@@ -21,11 +22,11 @@ var ctx = canvas.getContext("2d");
   function startGame(){ 
     frames = 0;
     board = new Board();
+    boardEnd = new BoardEnd();
+    
     box = new Box();
     question = new Question();
     interval = setInterval(updateGame,1000/60);
-    //quiz = new Quiz(questionsOne);
-    document.querySelector("#input").value = "";
 
   }
 
@@ -33,8 +34,23 @@ var ctx = canvas.getContext("2d");
     frames ++;
     board.draw();
     box.draw();
-    question.drawQuestion();   
-    drawScore()
+    if(endGame){
+
+      ctx.fillStyle = "#f9d566";
+      ctx.textBaseline = "middle";
+      ctx.font = "40px Starjedi";
+
+      ctx.fillText(score + " points", 980,400)
+      if(score < 5){
+        ctx.fillText("You still a Padawan",850,300);
+      }else{
+        ctx.fillText("You are a true Jedi",850,300);
+      }
+    }else{
+      question.drawQuestion();
+    }
+     
+    drawScore();     
 }
 
   //main Functions
@@ -65,23 +81,38 @@ var ctx = canvas.getContext("2d");
     }
   }
 
-  function gameName(){
-    this.x = 100;
-    this.y =150;
+  function BoardEnd(){
+    this.x = 0;
+    this.y = 0;
     this.width = canvas.width;
     this.height = canvas.height;
-    this.draw = function(){
-
+    this.img = new Image();
+    this.img.src = images.bg;
+    this.img.onload = function(){
+      this.draw();
+    }.bind(this);
+     this.draw = function(){
+      ctx.drawImage(this.img, this.x,this.y, this.width, this.height);
+     
+    }
   }
-}
 
-// Score
-function drawScore(){
-  ctx.fillStyle = "rgb(250, 250, 250)";
-  ctx.font = "24px Helvetica";
-  ctx.textAlign = "left";
-  ctx.textBaseline = "top";
-  ctx.fillText("Score:  " + score, 32, 32);
-}
 
+// make bb8 moves
+$(document).ready(function() {
+
+    function beeLeft() {
+        $("#b").animate({left: "-=200"}, 1500, "swing", beeRight);
+    }
+    function beeRight() {
+        $("#b").animate({left: "+=200"}, 1500, "swing", beeLeft);
+    }
+    
+    beeRight();
+    
+});
   startGame();
+
+
+
+

@@ -1,4 +1,5 @@
 var keylog = "";
+var endGame = false;
 //Questions Control
 function Question(){
   this.text;
@@ -22,19 +23,19 @@ Question.prototype.randomQ = function(){
   this.choices.forEach(choice=>{
 
     var letterIndex = Math.floor(Math.random()*chars.length);
-    console.log(letterIndex)
+    //console.log(letterIndex)
     if(choice === this.answer){
-      console.log("asignando solucion")
+     // console.log("asignando solucion")
        this.key = chars[letterIndex];
     }
     this.choicePairs.push({key:chars[letterIndex],choice:choice});
-    console.log(this.choicePairs)
+    //console.log(this.choicePairs)
  
     chars.splice(letterIndex,1); 
     keylog = this.key
 
   });
-  console.log(keylog)
+  //console.log(keylog)
 }
 
 Question.prototype.drawQuestion = function(){
@@ -43,11 +44,11 @@ Question.prototype.drawQuestion = function(){
     66:"B",
     67:"C"
   }
-  var y = 290;
+  var y = 250;
   ctx.fillStyle = "#f9d566";
   ctx.textBaseline = "middle";
-  ctx.font = "30px Starjedi";
-  ctx.fillText(this.text,720,120);
+  ctx.font = "33px Starjedi";
+  ctx.fillText(this.text,700,130);
   this.choicePairs.sort(function(a, b) {
     return a.key - b.key;
 });
@@ -60,61 +61,29 @@ Question.prototype.drawQuestion = function(){
 }
  
 document.addEventListener("keydown", function(e){
+  if(questionsOne.length < 1){
+    endGame = true;
+  }
   if(e.keyCode === 65 || e.keyCode === 66 || e.keyCode === 67){
-    // console.log("El user:",e.keyCode);
+    // getting keyCode of A,B,C;
     // console.log("verdad: ",keylog);
     if(e.keyCode === keylog){
-      console.log("score: ",score)
       score+=1;
       questionsOne.splice(index, 1);
-      if (questionsOne.length===0){
-        console.log(score);
-        //Codigo que se acabo el juego
+      if (questionsOne.length==0){
+        //End of the game
+        BoardEnd();
+        endGame = true;
       }
-      console.log("score: ",score)
+
       startGame();
-      //alert("Acertaste!")
-    }else{
-      alert("estas bien wey")
+      $('#input').val(' '); // clean input text every time the function iniciated.
+     
+    } else if(e.keyCode !== keylog){
+      score = score;
+      questionsOne.splice(index, 1);
     }
-
-  //   if(e.keyCode === keylog){
-  //     return score += 1;
-  //     console.log(score);
-  //   }
-  //   else {
-  //      score += 0;
-  //   }
-  // }
-  // else{
-  //   console.log("Enter A, B OR C");
-  // }  
+    startGame(); 
   }
+ 
 });
-
-
-
-/*
-Quiz Control
-function Quiz(questions){
- this.score = 0;
- this.questions = questions;
- this.questionIndex = 0;
-}
-
-Quiz.prototype.gameEnd = function(){
-  return this.questions.lenght === this.questionIndex;
-}
-
-Quiz.prototype.guess = function(answer){
-  this.questionIndex++;
-  if(this.getQuestionIndex().correctAnswer(answer)){
-    this.score++;
-   }
-}
-
-Quiz.prototype.displayMessage = function(numberCorrect, totalQuestions) {
-  var message = 'You got ' + numberCorrect + ' questions right out of ' + 
-    totalQuestions + '. Would you like to try again?';
-};
-*/

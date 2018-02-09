@@ -38,7 +38,7 @@ function Ship(){
             this.y-=1;
             this.speed = 0;
         }else{
-            
+     
         }
     }
   }

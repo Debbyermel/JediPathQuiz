@@ -21,12 +21,12 @@ var questionsOne = [
   answer:"Slave1"
 },
 {
-  text:"What happened to Darth Maul??",
-  choices:["Killed by Obi-Wan Kenobi","Unconfirmed","Killed by Count Dooku"],
-  answer:"Killed by Obi-Wan Kenobi"
+  text:"What creatures the Sand People ride?",
+  choices:["Banthas","Maranthas","Mantes"],
+  answer:"Banthas"
 },
 {
-  text:"From which planet is Han Solo from",
+  text:"From which planet is Han Solo from?",
   choices:["Coruscant","Kashyyk","Corellia"],
   answer:"Corellia"
 },
