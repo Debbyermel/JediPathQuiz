@@ -3,7 +3,7 @@ var ctx = canvas.getContext("2d");
 
 //Images Object
  var images = {
-    bg:"img/cover.jpg", 
+    bg:"img/cover.jpg"
  };
 
   //Global Variables
@@ -40,7 +40,7 @@ var ctx = canvas.getContext("2d");
       ctx.textBaseline = "middle";
       ctx.font = "40px Starjedi";
 
-      ctx.fillText(score + " points", 980,400)
+      ctx.fillText(score + " points", 980,400);
       if(score < 5){
         ctx.fillText("You still a Padawan",850,300);
       }else{
@@ -111,7 +111,14 @@ $(document).ready(function() {
     beeRight();
     
 });
+var beepOne = $("#beep-one")[0];
+$("#rimshot-hover-sound")
+ .mouseenter(function() {
+   beepOne.play();
+ });
+
   startGame();
+
 
 
 
