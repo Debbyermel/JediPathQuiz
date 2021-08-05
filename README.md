@@ -1,4 +1,4 @@
-https://debbyermel.github.io/JediPathQuiz/main.html
+https://debbyermel.github.io/JediPathQuiz
 
 ![yoda](https://user-images.githubusercontent.com/15261454/35839564-b2cf1cc0-0ab6-11e8-859e-c65a7138b41c.jpg)
 
